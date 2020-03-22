@@ -1,0 +1,15 @@
+{
+    "name": "backend",
+    "version": "0.1.0",
+    "main": "index.js",
+    "repository": "git@github.com:Neighbor-Army/backend.git",
+    "author": "Miikis <Miikis@users.noreply.github.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "format": "prettier --write \"**/*.{js,jsx,json,md}\""
+    },
+    "devDependencies": {
+        "prettier": "^2.0.1"
+    }
+}
