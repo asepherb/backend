@@ -6,7 +6,7 @@ const OnFleet = require("@onfleet/node-onfleet");
 const neighborhood = require("./helpers/neighborhood");
 const task = require("./helpers/onfleet/task");
 const firebaseService = require("./services/firebase");
-const sendgrid = require("./helpers/sendgrid");
+const sendgridService = require("./services/sendgrid");
 
 const app = express();
 const onfleet = new OnFleet(process.env.ONFLEET_KEY);
@@ -110,7 +110,7 @@ app.post("/team", async function (req, res) {
 
 app.post("/email", async function (req, res) {
     console.log(req.body.email);
-    const result = await sendgrid.addEmailToList(req.body.email);
+    const result = await sendgridService.addEmailToList(req.body.email);
     res.status(result.statusCode).send();
 });
 
