@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const OnFleet = require("@onfleet/node-onfleet");
 
 const neighborhoodService = require("./services/neighborhood");
-const task = require("./helpers/onfleet/task");
+const onFleetService = require("./services/onfleet");
 const firebaseService = require("./services/firebase");
 const sendgridService = require("./services/sendgrid");
 
@@ -42,7 +42,7 @@ app.get("/", async function (req, res) {
 });
 
 app.get("/task/:id", async function (req, res) {
-    const result = await task.getTask(req.param.id);
+    const result = await onFleetService.getTask(req.param.id);
     res.json(result);
 });
 
@@ -57,7 +57,7 @@ app.post("/task", async function (req, res, next) {
             zipcode: address.postalCode
         });
         console.log(neighborhoodName);
-        const results = await task.createTask(
+        const results = await onFleetService.createTask(
             req.body.address,
             req.body.person,
             req.body.notes
@@ -69,12 +69,15 @@ app.post("/task", async function (req, res, next) {
 });
 
 app.patch("/task/:id", async function (req, res) {
-    const results = await task.updateTask(req.params.id, req.query.body);
+    const results = await onFleetService.updateTask(
+        req.params.id,
+        req.query.body
+    );
     res.json(results);
 });
 
 app.delete("/task/:id", async function (req, res) {
-    const results = task.deleteTask(req.param.id);
+    const results = onFleetService.deleteTask(req.param.id);
     res.json(results);
 });
 
