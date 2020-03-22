@@ -16,6 +16,12 @@ const writeNewTeam = (name, onfleetID, neighborhoodID) => {
     });
 };
 
+const getTeam = async (id) => {
+    const document = await db.collection("teams").doc(id).get();
+    return document.data();
+};
+
 module.exports = {
-    writeNewTeam
+    writeNewTeam,
+    getTeam
 };
