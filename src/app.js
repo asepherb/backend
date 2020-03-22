@@ -3,7 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const OnFleet = require("@onfleet/node-onfleet");
 
-const neighborhood = require("./helpers/neighborhood");
+const neighborhoodService = require("./services/neighborhood");
 const task = require("./helpers/onfleet/task");
 const firebaseService = require("./services/firebase");
 const sendgridService = require("./services/sendgrid");
@@ -49,7 +49,7 @@ app.get("/task/:id", async function (req, res) {
 app.post("/task", async function (req, res, next) {
     const address = req.body.address;
     try {
-        const neighborhoodName = await neighborhood.getNeighborhood({
+        const neighborhoodName = await neighborhoodService.getNeighborhood({
             streetAddress: address.number + " " + address.street,
             unit: address.apartment,
             city: address.city,
@@ -80,7 +80,7 @@ app.delete("/task/:id", async function (req, res) {
 
 app.post("/team", async function (req, res) {
     const address = req.body.address;
-    const neighborhoodData = await neighborhood.getNeighborhood({
+    const neighborhoodData = await neighborhoodService.getNeighborhood({
         streetAddress: address.number + " " + address.street,
         unit: address.apartment,
         city: address.city,
