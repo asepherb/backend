@@ -5,7 +5,7 @@ const OnFleet = require("@onfleet/node-onfleet");
 
 const neighborhood = require("./helpers/neighborhood");
 const task = require("./helpers/onfleet/task");
-const firebase = require("./helpers/firebase");
+const firebaseService = require("./services/firebase");
 const sendgrid = require("./helpers/sendgrid");
 
 const app = express();
@@ -99,7 +99,7 @@ app.post("/team", async function (req, res) {
         })
         .then(function (response) {
             const id = response.id;
-            firebase.writeNewTeam(name, id, neighborhoodID);
+            firebaseService.writeNewTeam(name, id, neighborhoodID);
             res.status(200).json({
                 onFleetID: id,
                 name: name,
